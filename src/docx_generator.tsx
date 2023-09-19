@@ -1,13 +1,12 @@
-import { useRecords, useFields, useActiveViewId, useSelection, useCloudStorage, useSettingsButton, useViewport, useField, Field, Record, IAttachmentValue, usePrimaryField, FieldType, useDatasheet } from '@vikadata/widget-sdk';
-import { Button, IButtonProps } from '@vikadata/components';
-import { InformationSmallOutlined } from '@vikadata/icons';
+import { useRecords, useFields, useActiveViewId, useSelection, useCloudStorage, useSettingsButton, useViewport, useField, Field, Record, IAttachmentValue, usePrimaryField, FieldType, useDatasheet } from '@apitable/widget-sdk';
+import { Button, IButtonProps } from '@apitable/components';
+import { InformationSmallOutlined } from '@apitable/icons';
 import React, { useEffect, useState } from 'react';
 import Docxtemplater from 'docxtemplater';
 import {DXT} from 'docxtemplater';
 import PizZip from 'pizzip';
 import PizZipUtils from 'pizzip/utils/index.js';
 import { saveAs } from 'file-saver';
-import { useHotkeys } from 'react-hotkeys-hook'
 
 
 const userToken = ""
@@ -57,7 +56,7 @@ async function uploadAttachment(activeDatasheetId: String, fileBlob: Blob) {
 
 /**
  * 文档生成的异常处理
- * @param error 
+ * @param error
  */
 function throwError(error: any) {
   console.log("模板解析错误", JSON.stringify({ error: error }, replaceErrors));
@@ -152,7 +151,7 @@ async function generateDocuments(selectedRecords: Record[], fields: Field[], sel
       const outputZip = new PizZip((outputs[0] as any).content)
       saveAs(outputZip.generate({ type: "blob" }), outputFileName)
     }
-    
+
   }
 
 }
@@ -165,15 +164,15 @@ const getUniqueFilename = (existedFilenames, newFilename) => {
         if (existedFilenames.indexOf(targetFileName) == -1) {
             break;
         }
-    }   
+    }
   }
   return targetFileName
 }
 
 /**
  * Docxtemplater 自定义标签解析器
- * @param tag 标签名称，eg: {产品名称} 
- * @returns 
+ * @param tag 标签名称，eg: {产品名称}
+ * @returns
  */
  const customParser = (tag) => {
   const isTernaryReg = new RegExp(/(.*)\?(.*)\:(.*)/)
@@ -266,6 +265,7 @@ async function generateDocument(row: any, selectedAttachment: IAttachmentValue, 
         try {
           doc.setData({...row}).render();
         } catch (error: any) {
+          console.error('错误信息', error);
           throwError(error)
         }
 
@@ -330,7 +330,7 @@ export const DocxGenerator: React.FC = () => {
   const primaryField = usePrimaryField() || fields[0]
 
   const datasheet = useDatasheet()
-  
+
   // 校验用户是否有新增记录的权限，从而判断用户对表格是否只读权限
   const permission = datasheet?.checkPermissionsForAddRecord()
 
@@ -394,7 +394,7 @@ export const DocxGenerator: React.FC = () => {
 
   return (
     <div style={style1}>
-      {helpLink} 
+      {helpLink}
 
       {selectedAttachmentField &&
         <div>
@@ -414,8 +414,8 @@ export const DocxGenerator: React.FC = () => {
 
           <div style={{ marginTop: '16px', textAlign: 'center' }}>
             {
-              (selectedRecords.length > 0) ? 
-              <Button 
+              (selectedRecords.length > 0) ?
+              <Button
                 {...btnProps}
                 onClick={async(e)=> {
                   setProcessing(true)

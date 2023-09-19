@@ -1,7 +1,7 @@
 import React from 'react';
-import { useSettingsButton, useCloudStorage, FieldPicker, useActiveViewId, useFields, useViewIds, FieldType } from '@vikadata/widget-sdk';
-import { ISwitchProps, Switch } from '@vikadata/components';
-import { InformationSmallOutlined } from '@vikadata/icons';
+import { useSettingsButton, useCloudStorage, FieldPicker, useActiveViewId, useFields, useViewIds, FieldType } from '@apitable/widget-sdk';
+import { ISwitchProps, Switch } from '@apitable/components';
+import { InformationSmallOutlined } from '@apitable/icons';
 
 export const Setting: React.FC = () => {
   const [isShowingSettings] = useSettingsButton()
@@ -33,7 +33,7 @@ export const Setting: React.FC = () => {
   return isShowingSettings ? (
     <div style={{ flexShrink: 0, width: '300px', borderLeft: 'solid 1px var(--lineColor)', paddingLeft: '16px', paddingTop: '40px', paddingRight: '16px', background: 'var(--defaultBg)' }}>
       <h3 style={{color: 'var(--firstLevelText)'}}>
-        配置 
+        配置
         <a style={{verticalAlign: "middle", color: 'var(--thirdLevelText)', marginLeft: "4px"}} title="查看教程" target="_blank" href="https://bbs.vika.cn/article/111" >
           <InformationSmallOutlined size={16}  />
         </a>
@@ -41,9 +41,9 @@ export const Setting: React.FC = () => {
       <div style={{ marginTop: '16px' }}>
         <label style={{ fontSize: '12px', color: 'var(--thirdLevelText)' }}>请选择 word 模板所在的附件列名</label>
         <div style={{background: 'var(--fill0)'}}>
-          <FieldPicker 
-            viewId={activeViewId?activeViewId:viewIds[0]} 
-            fieldId={fieldId} 
+          <FieldPicker
+            viewId={activeViewId?activeViewId:viewIds[0]}
+            fieldId={fieldId}
             onChange={option => checkAndUpdateSelectedAttachmentField(option.value)}
             allowedTypes={[FieldType.Attachment]}
           />

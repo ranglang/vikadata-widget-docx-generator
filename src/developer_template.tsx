@@ -1,12 +1,12 @@
 import React from 'react';
-import { useDatasheet } from '@vikadata/widget-sdk';
+import { useDatasheet } from '@apitable/widget-sdk';
 import { DocxGenerator } from './docx_generator';
 import { Setting } from './setting';
 
 export const WidgetDeveloperTemplate: React.FC = () => {
 
   const datasheet = useDatasheet()
-  
+
   // 校验用户是否有新增记录的权限，从而判断用户对表格是否只读权限
   const permission = datasheet?.checkPermissionsForAddRecord()
 
@@ -16,7 +16,7 @@ export const WidgetDeveloperTemplate: React.FC = () => {
         <DocxGenerator />
       </div>
       {permission?.acceptable && <Setting/>}
-      
+
     </div>
   );
 };
