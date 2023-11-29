@@ -16,6 +16,7 @@ export const WidgetDeveloperTemplate: React.FC = () => {
       <div style={{ flexGrow: 1, overflow: 'auto', padding: '0 8px'}}>
         <DocxGenerator />
       </div>
+        {String(sample)}
         <img src={sample} />
       {permission?.acceptable && <Setting/>}
 
