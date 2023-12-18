@@ -82,6 +82,8 @@ async function generateDocuments(selectedRecords: Record[], fields: Field[], sel
   const single = selectedRecords.length>1 ? false : true;
   var outputs = []
 
+  let attachement=null;
+  const list = []
   for (let index = 0; index < selectedRecords.length; index++) {
     const record = selectedRecords[index]
     const row = {}
@@ -128,9 +130,16 @@ async function generateDocuments(selectedRecords: Record[], fields: Field[], sel
 
     console.log({ row, attachements, prefix, suffix })
 
-    if(attachements) {
-      await generateDocument(row, attachements[0], prefix + "-" + filename, outputs)
+    list.push(row);
+    if(attachement == null) {
+      attachement = attachements[0]
     }
+  }
+
+  console.log('attachement xxxxxxxxxxxxxxxxxxxxx', attachement)
+  console.log('list', list)
+  if(attachement) {
+    await generateDocument(list, attachement, '文档', outputs)
   }
 
   console.log("outputs", outputs)
@@ -241,7 +250,7 @@ const getUniqueFilename = (existedFilenames, newFilename) => {
 /**
  * 调用第三方库，生成word文档并调起浏览器附件下载事件
  */
-async function generateDocument(row: any, selectedAttachment: IAttachmentValue, filename: string, outputs: any) {
+async function generateDocument(list: any, selectedAttachment: IAttachmentValue, filename: string, outputs: any) {
   return new Promise<void>((resolve, reject) => {
     loadFile(selectedAttachment.url, function (error, content: ArrayBuffer) {
       if (error) {
@@ -263,7 +272,7 @@ async function generateDocument(row: any, selectedAttachment: IAttachmentValue, 
         })
 
         try {
-          doc.setData({...row}).render();
+          doc.setData({list}).render();
         } catch (error: any) {
           console.error('错误信息', error);
           throwError(error)

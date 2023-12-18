@@ -2,7 +2,7 @@ import React from 'react';
 import { useDatasheet } from '@apitable/widget-sdk';
 import { DocxGenerator } from './docx_generator';
 import { Setting } from './setting';
-import sample from "./sample.png";
+// import sample from "./sample.png";
 
 export const WidgetDeveloperTemplate: React.FC = () => {
 
@@ -16,8 +16,6 @@ export const WidgetDeveloperTemplate: React.FC = () => {
       <div style={{ flexGrow: 1, overflow: 'auto', padding: '0 8px'}}>
         <DocxGenerator />
       </div>
-        {String(sample)}
-        <img src={sample} />
       {permission?.acceptable && <Setting/>}
 
     </div>
