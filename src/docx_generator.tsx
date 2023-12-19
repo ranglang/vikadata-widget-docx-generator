@@ -159,9 +159,11 @@ async function generateDocuments(selectedRecords: Record[], fields: Field[], sel
       const content = outputZip.generate({ type: "blob" })
       saveAs(content, outputFileName)
     } else {
-      const outputZip = new PizZip((outputs[0] as any).content)
-      const f = outputZip.generate({ type: "blob" })
-       uploadDocument(f)
+      // console.log('a', (outputs[0] as any).content)
+      const blob1 = (outputs[0] as any).content
+      // const outputZip = new PizZip((outputs[0] as any).content)
+      // const f = outputZip.generate({ type: "blob" })
+       uploadDocument(blob1)
       // saveAs(, outputFileName)
     }
 
