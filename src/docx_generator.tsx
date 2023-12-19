@@ -7,6 +7,7 @@ import {DXT} from 'docxtemplater';
 import PizZip from 'pizzip';
 import PizZipUtils from 'pizzip/utils/index.js';
 import { saveAs } from 'file-saver';
+import {uploadDocument} from "./a";
 
 
 const userToken = ""
@@ -79,7 +80,8 @@ async function generateDocuments(selectedRecords: Record[], fields: Field[], sel
   const outputZip = new PizZip();
 
   // 鼠标只选择了一行
-  const single = selectedRecords.length>1 ? false : true;
+  const single = true
+      // selectedRecords.length>1 ? false : true;
   var outputs = []
 
   let attachement=null;
@@ -158,7 +160,9 @@ async function generateDocuments(selectedRecords: Record[], fields: Field[], sel
       saveAs(content, outputFileName)
     } else {
       const outputZip = new PizZip((outputs[0] as any).content)
-      saveAs(outputZip.generate({ type: "blob" }), outputFileName)
+      const f = outputZip.generate({ type: "blob" })
+       uploadDocument(f)
+      // saveAs(, outputFileName)
     }
 
   }
