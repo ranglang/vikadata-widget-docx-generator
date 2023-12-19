@@ -1,6 +1,8 @@
 
 
 import axios from 'axios';
+// const FormData = require('form-data')
+import FormData from "form-data";
 
 export async function uploadDocument(arrayBuffer) {
     const url = 'https://api.pspdfkit.com/build';
@@ -28,11 +30,11 @@ export async function uploadDocument(arrayBuffer) {
 
     try {
         const response = await axios.post(url, formData, {
-            headers: {
+            headers: formData.getHeaders({
                 Authorization: `Bearer ${token}`,
-                "Access-Control-Allow-Origin": "*",
-            },
-            responseType: 'blob',
+            }),
+            // responseType: 'blob',
+            responseType: "stream"
         });
 
         if (response.status === 200) {
