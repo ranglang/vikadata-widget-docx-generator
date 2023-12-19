@@ -2,16 +2,18 @@
 
 import axios from 'axios';
 
-export async function uploadDocument(file) {
+export async function uploadDocument(arrayBuffer) {
     const url = 'https://api.pspdfkit.com/build';
     const token = 'pdf_live_cliHRdDYa05q7wJtNgQ2kyjuAlYQvVugHOindVXnhGz';
     const documentPath = 'document.docx';
 
     const formData = new FormData();
-    console.log('filexxxxxxx', file);
-    const newFile = new File([file], "name.docx");
+    // console.log('filexxxxxxx', file);
+    // const newFile = new File([file], "name.docx");
+    const blob = new Blob([arrayBuffer]);
+    formData.append('document', blob, 'filename.docx');
     // await fs.promises.readFile(documentPath)
-    formData.append('document', newFile);
+    // formData.append('document', newFile);
     formData.append(
         'instructions',
         JSON.stringify({
