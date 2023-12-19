@@ -9,7 +9,7 @@ export async function uploadDocument(file) {
 
     const formData = new FormData();
     console.log('filexxxxxxx', file);
-    const newFile = new File([file], "name");
+    const newFile = new File([file], "name.docx");
     // await fs.promises.readFile(documentPath)
     formData.append('document', newFile);
     formData.append(
